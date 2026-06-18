@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Archive</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f7f7f7;
+            color: #222;
+            line-height: 1.7;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .header-title {
+            color: #222;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .header-nav {
+            display: flex;
+            gap: 0.9rem;
+        }
+        .header-nav a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .header-nav a:hover {
+            color: #0066cc;
+        }
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        .page-intro {
+            margin-bottom: 2rem;
+        }
+        .page-intro h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .page-intro p {
+            color: #555;
+        }
+        .case-list {
+            display: grid;
+            gap: 1rem;
+        }
+        .case-card {
+            display: block;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: box-shadow .2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .case-card:hover {
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        .case-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.4rem;
+            color: #0066cc;
+        }
+        .case-updated {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+        .case-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .status-tag {
+            display: inline-block;
+            background: #fff1d6;
+            color: #9a5d00;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            padding: 0.2rem 0.55rem;
+        }
+        .header-email {
+            margin-left: auto;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.35rem 0.65rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .header-email:hover {
+            color: #0066cc;
+            border-color: #0066cc;
+            background: #f0f7ff;
+        }
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: #e8f4f8;
+            color: #0066cc;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .header-inner { padding: 0.9rem 1rem; }
+            main { padding: 2rem 1rem; }
+            .page-intro h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-left">
+                <nav class="header-nav">
+                    <a href="../index.html">Overview</a>
+                    <a href="index.html">Case Archive</a>
+                </nav>
+            </div>
+            <a class="header-email" href="mailto:tfbsg.ae@atomicmail.io">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-intro">
+            <h1>Known Cases</h1>
+            <p></p>
+        </section>
+
+        <section class="case-list">
+            <a href="180626.html" class="case-card">
+                <div class="case-updated">Last Updated: June 18, 2026</div>
+                <h2>180626 — Cactus</h2>
+                <div class="case-meta">
+                    <span>Server: Asia</span>
+                    <span>UID: 40******36</span>
+                </div>
+                <div class="tag-container">
+                    <span class="tag">Unresolved</span>
+                    <span class="tag">PC</span>
+                    <span class="tag">Mobile</span>
+                    <span class="tag">Asia</span>
+                    <span class="tag">Non-Purchasing Account</span>
+                </div>
+            </a>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arknights Endfield Ban Appeal Archive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+
+        /* Header & Hamburger */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #222;
+            text-decoration: none;
+            border-bottom: none;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .header-nav a {
+            color: #444;
+            text-decoration: none;
+            border-bottom: none;
+            font-size: 0.95rem;
+        }
+
+        .header-nav a:hover {
+            color: #0066cc;
+            background: none;
+        }
+
+        .header-email {
+            margin-left: auto;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.35rem 0.65rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .header-email:hover {
+            color: #0066cc;
+            border-color: #0066cc;
+            background: #f0f7ff;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        /* Main Layout */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar TOC */
+        .sidebar {
+            width: 280px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 60px;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .toc {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-item > div {
+            display: flex;
+            align-items: center;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .toc-link:hover {
+            background: #f5f5f5;
+            border-left-color: #0066cc;
+        }
+
+        .toc-link.active {
+            background: #f0f7ff;
+            border-left-color: #0066cc;
+            font-weight: 600;
+            color: #0066cc;
+        }
+
+        .toc-level-1 .toc-link {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .toc-level-2 .toc-link {
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .toc-level-3 .toc-link {
+            padding-left: 2.25rem;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .toc-level-3 .toc-link:hover {
+            color: #0066cc;
+        }
+
+        .toc-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            width: 1.2rem;
+            height: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0066cc;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .toc-toggle::before {
+            content: '▶';
+            font-size: 0.7rem;
+            transition: transform 0.2s;
+            visibility: hidden;
+        }
+
+        .toc-toggle:not(:disabled)::before {
+            visibility: visible;
+        }
+
+        .toc-toggle.expanded::before {
+            transform: rotate(90deg);
+        }
+
+        .toc-submenu {
+            display: none;
+            list-style: none;
+        }
+
+        .toc-submenu.show {
+            display: block;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 3rem 4rem;
+            background: #fff;
+            line-height: 1.8;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 80px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .section-number {
+            color: #999;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        blockquote {
+            border-left: 4px solid #0066cc;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            border-bottom: 1px dotted #0066cc;
+        }
+
+        a:hover {
+            background: #f0f7ff;
+            border-bottom-color: #0066cc;
+        }
+
+        .content-placeholder {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 1rem;
+            border-radius: 4px;
+            color: #999;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 60px;
+                height: calc(100vh - 60px);
+                z-index: 99;
+                transition: left 0.3s;
+                background: #fff;
+                box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            .toc-level-2 .toc-link {
+                padding-left: 1.2rem;
+            }
+
+            .toc-level-3 .toc-link {
+                padding-left: 1.8rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <nav class="header-nav">
+                <a href="index.html">Overview</a>
+                <a href="cases/index.html">Case Archive</a>
+            </nav>
+        </div>
+        <a class="header-email" href="mailto:tfbsg.ae@atomicmail.io">Contact</a>
+        <button class="hamburger" id="hamburger-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar TOC -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-title">Contents</div>
+            <ul class="toc" id="toc-list">
+                <!-- TOC will be generated by JavaScript -->
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Section Intro: Title -->
+            <section id="section-intro" class="section">
+                <h1>Arknights Endfield Ban Appeal Archive</h1>
+                <p><em>While the title is a bit clinical, this title is excellent for SEO.</em></p>
+            </section>
+
+            <!-- Section 1: What is this -->
+            <section id="section-1" class="section">
+                <h2><span class="section-number">1.</span>About This Site</h2>
+
+                <h3 id="section-1-1">1.1 What Is This?</h3>
+                <p>If you're reading this, there is a chance you caught a ban in <em>Arknights: Endfield</em> and have reason to believe it was a false positive.</p>
+
+                <p>You've probably already scoured forums and social media. You've discovered you aren't the only one, but you <em>are</em> just a tiny, unfortunate fraction of a massive player base who thought, <em>"That'll never happen to me."</em> And unfortunately, most of those similar cases you found? They likely vanished into the void the second the post lost its initial traction.</p>
+
+                <p>You are not alone.</p>
+
+                <p>This record attempts to study and document account recovery and ban appeal experiences within <em>Arknights: Endfield</em>. Rather than focusing on individual accusations, the goal is to identify patterns:</p>
+
+                <ul>
+                    <li><strong>Which appeals appear successful?</strong></li>
+                    <li><strong>Which appeals appear unsuccessful?</strong></li>
+                    <li><strong>What automated responses do players commonly receive?</strong></li>
+                    <li><strong>What can future players learn from previous cases?</strong></li>
+                </ul>
+
+                <blockquote>Every ban case documented in this archive is presented under the pretense of being a false positive.</blockquote>
+
+                <p>By collecting and preserving these experiences, this archive aims to provide a clearer picture of a process that is often completely opaque to players. A secondary objective is visibility. If recurring patterns genuinely exist, they cannot be meaningfully discussed, investigated, or improved if nobody outside the affected players is aware of them. By keeping these cases public and searchable, this archive also serves as a way to ensure that relevant stakeholders have the opportunity to see that these experiences exist.</p>
+
+                <p>I do not expect this place to suddenly gather hundreds of people. I built it because I know exactly how isolating it feels to search for answers and find absolutely nothing useful. If you found this page because you lost access to your account, received a ban you do not understand, or feel stuck in an endless appeal loop, then this archive was built for people like you. I'll try my best to be fair by separating my own experiences, what I've independently researched, and my personal opinions. I ask that you do the same by separating the facts you find from your own opinions.</p>
+
+                <p>Think of this project as a lighthouse. It may not solve every problem. It may not change every outcome. But it can leave a visible trail for the next person searching in the dark.</p>
+
+                <h3 id="section-1-2">1.2 What This Site Is Not</h3>
+                <ul>
+                    <li>Not an official support channel.</li>
+                    <li>Not a guarantee that your problem can be solved.</li>
+                    <li>Not legal advice.</li>
+                    <li>Not a place to harass support staff, moderators, or other players.</li>
+                    <li>Not a place to assume every banned player is innocent.</li>
+                </ul>
+
+                <p>The sole purpose of this project is to document experiences and help people make informed decisions.</p>
+
+                <h3 id="section-1-3">1.3 Who Is This?</h3>
+                <p>I am not a lawyer, a journalist, a cybersecurity expert, or an employee of Gryphline or Hypergryph. I do not hold a PhD in getting banned from the University of Ban. I am just a fellow player whose account was banned, butthurt and unemployed enough to navigate this process and document the journey.</p>
+
+                <p>By the time this project started, I had already accepted that my account might never return. I am done presenting evidence of my innocence to a brick wall. I am done asking communities for advice only to be met with a "guilty until proven innocent" mentality. I am not asking you to agree with me.</p>
+
+                <p>I won't deny it if someone says I have a personal spite against Gryphline (though not necessarily Hypergryph itself) over this. Having received no acknowledgment to my informal dispute notice, physical letter, or personal data request  I was left with the impression that these submissions were not meaningfully reviewed.</p>
+
+                <p>However, the biggest driving factor that made me do this was something else entirely: <strong>If this happens to another player tomorrow, they will likely begin the same search I did.</strong> They will read the same scattered posts, ask the same questions, receive the same conflicting advice, and, ultimately, reach the same dead ends.</p>
+
+                <p>I never wanted to make this site. Like many players, I naively expected that if a system error occurred, I could simply explain the situation, show the logs, and work with support to resolve it. That wasn't my experience. I pray it wasn't yours.</p>
+
+                <p>This archive is my attempt to leave a record behind. Whether you are currently appealing, considering giving up, or simply trying to understand what happened, I hope some part of this documentation proves useful.</p>
+
+                <h3 id="section-1-4">1.4 Why GitHub?</h3>
+                <p>Throughout my own experience, I relied heavily on community spaces for information. Some discussions were helpful. Others never gained visibility, spiraled into speculation and slander, or were quietly removed a week later. While social media platforms are excellent for engagement, they are terribly designed for preserving truth.</p>
+
+                <p>GitHub is not perfect, but it is one of the most practical places for maintaining a long-term, static public archive. Most importantly, search engines can easily index its contents, making it discoverable for future players. A lighthouse isn't useful if nobody can find it.</p>
+            </section>
+
+            <!-- Section 2: If You Have The Same Problem -->
+            <section id="section-2" class="section">
+                <h2><span class="section-number">2.</span> In Case You Have the Same Trouble: What Can You Do?</h2>
+
+                <p>Account bans, like in most online games, are typically issued either through automated risk-detection systems or, less commonly, through direct review by staff. Unfortunately, players are almost never told which process led to their account being flagged.</p>
+
+                <p>Bans happen for many reasons. Some are entirely justified. Some are misunderstandings. Others may be related to account compromise, suspicious login activity, payment issues, or ownership disputes that the player may not immediately recognize. This archive cannot determine which category your case belongs to. What it can do is help you approach the situation methodically, avoiding early mistakes that could make your case harder to present later.</p>
+
+                <p>Check your ban notice. In the over a dozen player reports I personally encountered across different platforms, many, if not all, of the ban dates end at exactly the same time: 2106-02-07 at 01:28 (UTC-5) for NA/EU or 14:28 (UTC+8) for Asia. More importantly, outside of mainland China, the cited reason is often (had to say that because 'almost always' sounds more accusatory) an "Account Risk." From the outside looking in, there is zero visible difference between a legitimate ban and a false positive. The only difference you can make is in the evidence you prepare.</p>
+
+                <p>At this stage: Take a deep breath and hold your horses.</p>
+
+                <p>Treat the situation like an investigation rather than a verdict. Focus on gathering facts before drawing conclusions or firing off angry emails. You may discover an explanation you hadn't previously considered, or you may finish your self-audit and still genuinely find no valid reason for the ban. Both outcomes are valuable. The goal right now isn't to prove innocence or guilt. It's to understand your situation as clearly as possible.</p>
+
+                <p>Your initial response has the highest chance of succeeding because the details are still fresh. Focus on gathering information first before drawing conclusions or making your next move.</p>
+
+                <h3 id="section-2-1">2.1 Make Sure YOU Didn't Actually Break the Rules</h3>
+
+                <p>One of the first harsh realities you will encounter is that many people, whether in community forums or support channels, will instinctively assume you are guilty until proven otherwise. Fair or not, that is the default mindset. Before attempting to convince a support agent, you need to ask yourself the difficult questions.</p>
+
+                <p>This is not an accusation. It is a reality check. If you consciously and intentionally violated any of the points below, then you do not fall under the pretense of a false positive ban.</p>
+
+                <h4>Questions to Ask Yourself</h4>
+
+                <p><strong>Am I the original creator of this account? Is it actually mine?</strong> If you are the original owner and retain access to the registration email, authentication methods, and receipts, you have a strong foundation for an appeal.</p>
+
+                <p><strong>Have I ever bought, sold, traded, rented, or shared the account?</strong> According to <a href="https://endfield.gryphline.com/en-us/news/8900" target="_blank">Endfield's Fair Play Statement</a>, account transfers are strictly prohibited. Even with good intentions, passing an account around creates login patterns that look identical to unauthorized access or account compromise to an automated system.</p>
+
+                <p><strong>Have I used a shared gaming PC, cloud service, or internet café?</strong> While <a href="https://endfield.gryphline.com/en-us/news/8906" target="_blank"> Gryphline has explicitly promoted GeForce NOW for Endfield</a>, meaning cloud gaming isn't inherently a violation, shared networks mean your account activity is mixed with others. Knowing where and how you logged in is critical context.</p>
+
+                <p><strong>Have I used any software that interacts with the game?</strong> This includes obvious cheats, but also macros, overlays, injectors, debuggers, trainers, or modified game files. Anti-cheat systems evaluate behavior, not user intent. Even running unrelated background software that interacts with game memory can attract scrutiny. If you are uncertain whether an app might be relevant, take note of what was running on your system.</p>
+
+                <p><strong>Did I authorize a third-party website or tool?</strong> Did you log into a third-party site using your game credentials or authorize an app you didn't fully understand? A prime example was the <a href="https://www.reddit.com/r/Endfield/comments/1rjx5v6/endfieldrecords_dot_com_pull_tracker_malware/" target="_blank">EndfieldRecords</a> incident, which prompted Gryphline to publish a <a href="https://endfield.gryphline.com/en-us/news/7026" target="_blank">security notice warning players about unofficial tools.</a></p>
+
+                <p><strong>Have I recently logged in from multiple countries, heavily used a VPN, or switched devices unusually often?</strong> While using a VPN isn't an automatic ban, rapid, "impossible travel" IP changes can trigger automated security lockouts. Treat such theories as possibilities rather than established facts.</p>
+
+                <p><strong>Did I request a chargeback, or use a third-party top-up service?</strong> Payment reversals or using unauthorized third-party vendors who require your login credentials are massive red flags. If you used one, record exactly which service was used.</p>
+
+                <p><strong>Was my email compromised?</strong> Your game account is only as secure as the email attached to it. Have you reused passwords? Received suspicious login alerts? A compromised email can create consequences far beyond the game itself.</p>
+
+                <p>Some players who have never been banned might check several boxes on this list. Conversely, you might genuinely check none of them and still be staring at a ban screen. Must everyone walk on eggshells? Why do some players proudly parade their "gray-zone" accounts, but enforcement seem to come out of nowhere for your account instead? That frustrating uncertainty is exactly why this archive exists.</p>
+
+                <p>Treat theories as theories, and evidence as evidence. The distinction matters. If you still cannot identify a likely explanation, your next priority is preparing the strongest appeal possible.</p>
+
+                <h4 id="section-2-1-1">2.1.1 How to Collect Evidence</h4>
+
+                <p>If you passed the self-check and are ready to fight, your first step is securing the paper trail. Here is what you need to preserve and present immediately:</p>
+
+                <p><strong>1. In-Game History Logs</strong></p>
+
+                <p>If you can still access the game's title screen, navigate to Settings → Platforms & Account → Contact Customer Support.</p>
+                <img src="images/1.png" alt="Customer support screen screenshot 1">
+                <img src="images/2.png" alt="Customer support screen screenshot 2">
+                <p>Document everything in:</p>
+
+                <ul>
+                    <li>Sanity History (Keeps records for the past 7 days)</li>
+                    <li>Monthly Card History (If you bought it. Keeps records up to 90 days)</li>
+                    <li>Currency History (Keeps records up to 90 days)</li>
+                    <li>Email Claim History (Keeps records up to 90 days)</li>
+                </ul>
+
+                <p>Not only does this strengthen the timeline of your legitimate gameplay, but it also allows you to spot any unauthorized activity you didn't recognize.</p>
+
+                <img src="images/3.png" alt="Account history screenshot">
+                <p><strong>2. Account Info Screenshots</strong></p>
+
+                <p>Gather your Gryphline account data. You can access this via the <a href="https://endfield.gryphline.com/" target="_blank">official site</a>, or the game main screen → Settings → Platforms & Account → Account Center.</p>
+
+                <p>Also, pull your Endfield Protocol Terminal info via the SKPORT mobile app → Arknights Endfield → Protocol Terminal.</p>
+
+                <img src="images/4.png" alt="Account info screenshot">
+
+                <p><strong>3. Purchase Receipts</strong></p>
+
+                <p>Gather the digital receipts for any transactions you've made, paying special attention to the very first purchase and the most recent purchase.</p>
+
+                <h4 id="section-2-1-2">2.1.2 Setting Expectations</h4>
+
+                <p><em>"What are my chances?"</em></p>
+
+                <p>Unfortunately, there is no reliable answer. Some appeals succeed. Some fail. Some get detailed explanations, and others get completely ghosted.</p>
+
+                <p>This archive cannot guarantee you a perfect resolution. One of the most frustrating parts of any ban appeal is the severe information asymmetry between you and the publisher. You know your actions and your devices. Gryphline knows their internal logs, security alerts, and proprietary detection metrics.</p>
+
+                <p>You may never learn the full story. Many companies intentionally refuse to disclose what triggered an investigation, arguing that revealing their detection methods helps actual cheaters bypass them. From a player's perspective, this feels deeply unsatisfying.</p>
+
+                <p>Focus on what you can control:</p>
+
+                <ul>
+                    <li>The quality of your evidence.</li>
+                    <li>The clarity of your appeal.</li>
+                    <li>The accuracy of your timeline.</li>
+                    <li>The professionalism of your communication.</li>
+                    <li>The records you keep.</li>
+                </ul>
+
+                <p>Your job isn't to predict the result. Your job is to present the strongest, most fact-based case possible. If your appeal fails, that does not automatically mean you were dishonest. If it succeeds, that does not automatically prove the system was broken.</p>
+
+                <h3 id="section-2-2">2.2 Try Fighting for Your Account Back</h3>
+
+                <h4 id="section-2-2-1">2.2.1 Advice on How to Appeal</h4>
+
+                <p>There are different avenues for support. My recommendation is to use the <a href="https://gryphline.helpshift.com/hc/en/4-arknights-endfield/" target="_blank">Help Center website</a> first (you can also access it directly through the game's Settings menu). This route connects you to HelpShift support chat. Keep in mind that HelpShift relies on browser cookies to retain your chat session, so avoid clearing them while your case is active.</p>
+
+                <p>The second-best option is the <a href="https://gryphline.helpshift.com/hc/en/4-arknights-endfield/contact-us/?p=web" target="_blank">"Contact Us" email form</a> available through the same HelpShift platform. Do not confuse it with manually sending an email to endfield_cs@gryphline.com. The HelpShift route creates a support ticket and provides a ticket number.</p>
+
+                <p>My least recommended option is emailing endfield_cs@gryphline.com or support@gryphline.com directly. This route does not provide a ticket number, making follow-ups and case tracking more difficult.</p>
+
+                <p><strong>Compiling the Data</strong></p>
+
+                <p>These are the questions support may ask when you are pursuing a lost account recovery request. In cases involving an alleged false-positive "account risk" ban, this information can also help demonstrate ownership of the account. Proactively provide:</p>
+
+                <ul>
+                    <li>Registration method (Email, Google, Apple, etc.).</li>
+                    <li>Registration country/region and approximate date.</li>
+                    <li>Purchase records (especially the first one, if any).</li>
+                    <li>Time and device of your last successful login.</li>
+                    <li>The very first device used to log in.</li>
+                    <li>Detailed device specs (Phone model, PC CPU/GPU specs, etc.).</li>
+                </ul>
+
+                <p><strong>Drafting the Appeal Wordings</strong></p>
+
+                <p>Being angry, confused, or frustrated is normal. Leading with those emotions rarely helps. Support agents can only work with verifiable information. Be specific.</p>
+
+                <p>Instead of:<blockquote>"I have always played normally."</blockquote></p>
+                <p>Try:<blockquote>"My account was banned on [Date]. I am the original creator of the account. I have access to the registration email, purchase records, and account information. I have reviewed the Terms of Service and cannot identify any action that may have triggered the ban. Could my case please be reviewed?"</blockquote></p>
+
+                <p>Wrap your appeal in a strict timeline: When you last accessed the game, when you noticed the ban, and any unusual events (device/network changes, payments) that occurred shortly beforehand. Make it easy to read.</p>
+
+                <p>Lastly, be careful with accusations. Accusing staff of incompetence or bad faith rarely improves communication. Let the facts speak for themselves.</p>
+
+                <h4 id="section-2-2-2">2.2.2 Why the First Few Appeals Matter</h4>
+
+                <p>I will share my own mistake with you: I treated my first appeal as a formality. Something rushed. I figured, "I'll just explain everything properly later." That may be a massive mistake. Assume your first appeal is the only one that will actually be read.</p>
+
+                <p>Immediately after a ban, your memory is sharp and your records are accessible. Weeks later, details fade and screenshots get lost. Present your strongest evidence immediately. In several cases like mine and those I observed online, customer support responses became less frequent after repeated submissions (usually after two or three, in my opinion). Once the replies slow down, it can be tempting to assume your case has effectively been deprioritized or closed internally. I personally lean towards this belief. Make your first attempt count.</p>
+
+                <h4 id="section-2-2-3">2.2.3 Should You Try Communities?</h4>
+
+                <p>If you've been falsely banned, asking the community for advice is a reasonable step. Just keep your expectations brutally realistic.</p>
+
+                <p>Because false positives are hard to believe until they happen to you, you will likely face extreme skepticism. Conversations often devolve into an endless loop of "You must have done something" vs. "No I didn't," without either side possessing enough info to reach a conclusion.</p>
+
+                <p>Community outreach is useful for finding hidden information, identifying similar cases, and creating a public historical record. But be prepared for incomplete information, wild speculation, and outright hostility. If there is a party where you should strive to prove your innocence, it is to customer support, not random commenters.</p>
+
+                <h4 id="section-2-2-4">2.2.4 THAT Response Again...</h4>
+
+                <blockquote>
+                    Hello Endministrator!<br><br>
+                    Regarding your inquiry about your account being suspended, our relevant team has confirmed that the system detected risks associated with your account, leading to its suspension.<br><br>
+                    Given the significant risks associated with such an account, we are currently unable to process appeals for account restoration.<br><br>
+                    If you wish to play the game with a new account, we recommend registering and binding a personal account through official channels. This will ensure account security and help prevent similar issues.<br><br>
+                    Regards, Arknights: Endfield Customer Support Team
+                </blockquote>
+
+                <p>If you browse the internet long enough, you will likely notice that several players receiving messages that are similar. Are these written by bots? Not necessarily, but they are highly templated macros.</p>
+
+                <p>Am I only saying this because I'm upset I didn't get my account back? Maybe, but here is what I am personally suspicious of (treat this as speculation, not fact): I suspect that many "account risk" appeals never actually progress beyond the initial layer of customer support. If the system falsely flags an account, how can we be sure the appeals aren't being evaluated by that exact same flawed system? Imagine an agent reviewing your ticket, looking at the internal risk assessment, and simply trusting the system's flag over your word. If your appeal is evaluated primarily by referencing the same system that falsely flagged you in the first place, it's no wonder correcting an error is incredibly difficult.</p>
+
+                <p>If you receive this response, ask yourself: Have I already provided all relevant evidence? Have any of my previous appeals contained inconsistent or contradictory information? Simply sending the same appeal repeatedly is unlikely to produce a different outcome.  If there is still room for improvement, consider submitting a revised appeal.</p>
+
+                <h4 id="section-2-2-5">2.2.5 Entering the Ghosted Phase?</h4>
+
+                <p>In some cases, the replies eventually stop. You submitted the evidence. You explained the timeline. You remained polite. You followed every instruction. And now... nothing.</p>
+
+                <p>If you decide that you have reached the end of your appeal journey, that is okay. This archive encourages persistence, but it does not demand it. Walking away is a completely reasonable decision.</p>
+
+                <p>But if you still have a little bit of fight, or perhaps just a little bit of pettiness left in you, consider keeping the issue visible. For that, I personally thank you.</p>
+
+                <h3 id="section-3-3">3.3 Leave a Trail Like Me</h3>
+
+                <h4 id="section-3-3-1">3.3.1 What Are the Benefits of Speaking Up?</h4>
+
+                <p>The overall goal is simple: Make sure future players have something to find when they begin asking the same questions. Beyond helping players, compiling these cases creates a visibility. It serves as a passive but undeniable signal, demonstrating that these account flags are a recurring, documented issue rather than isolated anomalies.</p>
+
+                <p>By leaving a record, you make sure the next falsely banned player has a lighthouse to find. One documented case is a story. Ten or more cases reveal patterns. Over time, archived cases can help answer the core questions: What actually happened? What are the common chronologies? Is there even a way out of this?</p>
+
+                <p>It is in the nature of automated detection systems that, as long as they are being used, the false-positive rate is unlikely to ever be truly zero. Figuratively speaking, the false-positive rate can appear to be zero if affected users simply disappear without speaking up. Cases that are never reported, discussed, or challenged are easy to overlook and may ultimately be treated as negligible.</p>
+
+                <h4 id="section-3-3-2">3.3.2 How Can You Contribute?</h4>
+
+                <p><strong>Document Your Experience:</strong> If you post online, include the type of ban, the chronology, what you didn't do, the responses you received, and any honest theories about what might have triggered the flag. <a href="#section-3-1">Run through the self-audit checklist before posting.</a> Separate your raw facts from your personal theories.</p>
+
+                <p>When evaluating your own case, it may help to ask a few questions:
+                <ul>
+                    <li>Is the behavior or software in question clearly prohibited by the Fair Play Statement or Terms of Service?</li>
+                    <li>Would an ordinary player reasonably understand that this could trigger enforcement?</li>
+                    <li>If not, must everyone walk on eggshells around it?</li>
+                    <li>Are other players engaging in similar behavior without apparent consequences?</li>
+                    <li>If so, why do you believe your account was flagged?</li>
+                </ul>
+
+                <p><strong>Contribute to this Archive:</strong> If you want your case logged here, email <a href="mailto:tfbsg.ae@atomicmail.io">tfbsg.ae@atomicmail.io</a>. I may ask follow-up questions to verify the situation, as I want the entries here to represent cases where the player genuinely believes the enforcement was erroneous.</p>
+
+                <p><strong>Help Other Players:</strong> If you see someone else in the same boat, share resources and point them here.</p>
+
+                <p><strong>Avoid Unnecessary Accusations:</strong> Do not attack, harass, or target any individuals. Avoid rumors presented as facts. The fastest way to destroy credibility is to make claims that cannot be supported. Be neutral, be helpful, be kind.</p>
+
+                <h4 id="section-3-3-3">3.3.3 Additional: Keep It Together</h4>
+
+                <p>No one can truly measure how much time, effort, and emotion you invested into your account. The character grinds, the gacha luck, the 100% map explorations, the event medals, the months worth of Sanity, the money spent, the memories created.</p>
+
+                <p>At some point, however, people will tell you "it's just a game." And ultimately, they are right. Cope for as long as you need to find peace.</p>
+
+                <p>If you have done your absolute best to fight it, what else is left? Leave a trail if you wish. Fight if you wish. Move on if you wish. All of those choices are valid.</p>
+
+                <h4 id="section-3-3-4">3.3.4 Beware of Scams</h4>
+
+                <p>A quick but necessary warning: If you post about a lost or banned account publicly, theres a chance that you will likely be targeted by "account recovery experts" or "hackers" claiming they can bypass Gryphline's servers and restore your account for a fee.</p>
+
+                <p>These offers are overwhelmingly scams. Nobody outside of Gryphline itself can unban an account. Do not give these people your money, your account details, or your time.</p>
+            </section>
+
+            <!-- Section 3: Understanding Gryphline -->
+            <section id="section-3" class="section">
+                <h2><span class="section-number">3.</span> Understanding Gryphline's Customer Servicing</h2>
+
+                <h3 id="section-3-1">3.1 A Little About Gryphline</h3>
+
+                <p><strong>GRYPH FRONTIER PTE. LTD.</strong>, branded as <strong>GRYPHLINE</strong>, is the global publishing brand of Hypergryph and is headquartered in Singapore. For players outside mainland China, customer support interactions are handled through Gryphline rather than Hypergryph directly.</p>
+
+                <p>As of April 2026, public business directories (source: <a href="https://recordowl.com/company/gryph-frontier-pte-ltd" target="_blank">1</a>, <a href="https://sgpgrid.com/company-details/gryph-frontier-pte-ltd" target="_blank">2</a>) referencing Singapore corporate records reported Gryph Frontier Pte. Ltd. as having fewer than 15 officers or employees. Of course, this does not necessarily mean that fewer than 15 people are running the entire global operation for Arknights: Endfield. Modern companies frequently rely on outsourcing partners. Does Gryphline specifically outsource customer support? While I have not found enough publicly available evidence to make an absolute claim, it is highly unrealistic to imagine every global support ticket entering a massive office filled exclusively with dedicated, in-house Gryphline staff.</p>
+
+                <p><em>A quick note on their registered address: <a href="https://www.sgpbusiness.com/company/Gryph-Frontier-Pte-Ltd" target="_blank">Gryphline's registered business address appears to be shared by over 400 other companies.</a> This is not unusual in Singapore; many businesses use corporate service providers or virtual offices for legal and administrative purposes. A registered address is not necessarily the location where day-to-day operations occur.</em></p>
+
+                <p><strong>Gryphline vs. Hypergryph Support Platforms</strong></p>
+
+                <p>For mainland China players, Hypergryph operates its own direct customer service platform. For global players, Gryphline uses <strong>Helpshift</strong> as its primary support platform. Having personally contacted Hypergryph's mainland system on two occasions, my subjective impression was that the experience felt significantly more direct and responsive than the channels available through Gryphline. Your experience may differ.</p>
+
+                <h3 id="section-3-2">3.2 Understanding the Terms of Service (ToS)</h3>
+
+                <p><strong>If you're wondering why support won't tell you exactly why you got banned, it's because they contractually do not have to.</strong></p>
+
+                <p>Like any major publisher, <a href="https://endfield.gryphline.com/en-us/protocol/terms_of_service" target="_blank">Gryphline's Terms of Service for Arknights: Endfield</a> is a shield built to protect the company, not the customer. It grants them broad authority to suspend or terminate accounts whenever they decide it's necessary, even outside specifically listed rule violations. They can remove your access first and explain absolutely nothing afterward.</p>
+
+                <p>Furthermore, paying money doesn't buy you a VIP safety net. The contract explicitly allows them to suspend accounts, revoke transactions they consider suspicious, and deny refunds in almost all circumstances. Under the ToS, your account, premium currency, and virtual items aren't legally considered your property. You are only granted a limited license to use them while your account remains in "good standing."</p>
+
+                <p>Here is how the legalese breaks down:</p>
+
+                <ul>
+                    <li><strong>Broad Discretion to Ban:</strong>
+                        <ul>
+                            <li><em>Section 16(d):</em> "...we determine, at our reasonable discretion, that such termination or suspension is necessary or appropriate."</li>
+                            <li><em>Section 4:</em> "...we may terminate or suspend your Account... or take any other action to protect and preserve our rights, at our reasonable discretion..."</li>
+                        </ul>
+                    </li>
+                    <li><strong>No Extra Protection for Paying Customers:</strong>
+                        <ul>
+                            <li><em>Section 16:</em> "...we may suspend, restrict, or permanently terminate your access to any or all of the Services..."</li>
+                            <li><em>Section 6(b):</em> "If we suspect you have engaged in unauthorized, fraudulent, or improper activity, we reserve the right to cancel or revoke any Transactions... terminate, or suspend your Account."</li>
+                        </ul>
+                    </li>
+                    <li><strong>Refunds are Generally Denied:</strong>
+                        <ul>
+                            <li><em>Section 7:</em> "ALL SERVICES (INCLUDING GAMES), VIRTUAL GOODS, AND GAME CURRENCY... CANNOT BE REDEEMED, REFUNDED, OR EXCHANGED FOR ANYTHING OF VALUE..."</li>
+                        </ul>
+                    </li>
+                    <li><strong>You Don't Own Your Account:</strong>
+                        <ul>
+                            <li><em>Section 5(a):</em> "You have no ownership interest in the Services or any Games or Content contained within the Services."</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 id="section-3-3">3.3 Understanding Helpshift</h3>
+
+                <p><strong>Helpshift</strong> is a customer support platform used heavily across the gaming industry. It supports various operating models: fully automated flows, human support agents, hybrid systems, internal teams, and outsourced providers.</p>
+
+                <p>So, are the responses actually written by bots? Not necessarily. Based on my own interactions with Endfield support, I observed several different types of responses that suggest multiple layers of automation and human involvement:</p>
+
+                <p><strong>Obvious Automated Flow:</strong></p>
+
+                <img src="images/5.png" alt="Customer support screen screenshot 1">
+
+                <p>This is the immediate response you get when opening a ticket. Its purpose is to categorize the issue, present common solutions, and gather basic information. This stage is highly automated.</p>
+
+                <p><strong>Human Support Pool:</strong></p>
+
+                <img src="images/6.png" alt="Customer support screen screenshot 2">
+
+                <p>If you receive responses with slightly varied wording and timing, you are likely interacting with a human support queue. However, a human delivering a response does not mean they wrote it from scratch. Agents heavily rely on templates, macros, and internal knowledge bases to meet ticket quotas.</p>
+
+                <p>In my conversations, I received responses from "Customer Support," then "Soporte al Cliente" (despite not being in a Spanish-speaking region)</p>
+
+                <img src="images/7.png" alt="Customer support screen screenshot 3">
+
+                <p>and on another occasion, "EN Support" when discussing a data request.</p>
+
+                <img src="images/8.png" alt="Customer support screen screenshot 4"  >
+
+                <p>The moment I submitted a request regarding personal data retrieval, my ticket was handled by an agent designated as 'EN Support' instead of the usual 'Customer Support' or 'Soporte al Cliente.' I personally think this suggests multiple support queues or agent groups exist behind the platform. Whether those groups are internal or external is unknown. While this may or may not point to outsourcing,  it seems likely that these different layers possess different responsibilities and levels of authority.</p>
+
+                <p><strong>The Feedback Bot:</strong></p>
+
+                <img src="images/9.png" alt="Feedback survey bot screenshot">
+
+                <p>Eventually, conversations end with a feedback survey. When this bot appears, the conversation has been closed. You are no longer actively speaking with a human agent. In some cases, reopening the conversation could result in further human interaction. In others, it did not.</p>
+            </section>
+
+            <!-- Section 4: But I Didn't Want To Do This -->
+            <section id="section-4" class="section">
+                <h2><span class="section-number">4.</span> "But I Didn't Want To Do This."</h2>
+
+                <p>That is entirely okay. Seriously.</p>
+
+                <p>Originally, we all just wanted our accounts back so we could play the game. You didn't sign up to be an investigator, and stepping away from the whole mess is a completely reasonable stance. I do not force anyone to participate.</p>
+
+                <p>This archive exists because I had the time, the drive, and just enough spite to sit down and document my experience. At its core, this project is simply a record. A lighthouse, if you prefer the metaphor.</p>
+
+                <p>I have watched quite a handful of people report being struck by a similar problem, claiming a false positive just like mine, and I absolutely refuse to let myself and those people become a quietly disappearing statistic. While this archive is primarily intended to help players, I also hope that it eventually reaches people in positions to improve the situation, whether inside Gryphline, within Hypergryph, or elsewhere. Problems that remain invisible are difficult to acknowledge, and impossible to fix.</p>
+                
+                <p>If system errors exist and are never publicly visible, let this archive be a stubborn stain.</p>
+            </section>
+
+            <!-- Section 5: I Wasn't Banned But Concerned -->
+            <section id="section-5" class="section">
+                <h2><span class="section-number">5.</span> I Wasn't Banned, But Now I'm Concerned</h2>
+
+                <p>I owe you an apology. One thing I do not want this archive to become is a source of fearmongering. That was never my intention.</p>
+
+                <p>Statistically speaking, even if false positives exist, they are almost certainly a small fraction of the overall player base. Most people will play the game, enjoy their experience, and never think about account enforcement at all. You could get away with violating rules, or you could get struck doing absolutely nothing. I sincerely hope situations like the ones documented here become rarer over time, and that nobody has to go through the confusion and frustration it caused.</p>
+
+                <p>Unfortunately, no moderation system, anti-cheat system, security system, or review process can ever be guaranteed to be perfect. Mistakes are possible. That does not mean they are common; it simply means they are possible. For those who have already experienced a false positive elsewhere, that uncertainty can be difficult to dismiss. Personally, I am not particularly fond of gambling when something I care about is involved.</p>
+
+                <p><strong>Prevention is actually better than appeals.</strong> The easiest account issue to solve is the one that never happens.</p>
+
+                <h3 id="section-5-1">5.1 Follow The Rules</h3>
+
+                <p>It is obvious, but it is worth stating. Steer away from whatever the rules strictly bar you from doing. <a href="#section-3-1">Refer to this</a>. If you knowingly and intentionally violate a rule, then you are no longer dealing with a false positive scenario. You are dealing with a justified enforcement action.</p>
+
+                <p>At the same time, one reason this archive exists is because some players believe they were penalized despite avoiding those obvious violations. That uncertainty is exactly why documentation matters. But avoiding clearly prohibited behavior remains the easiest risk reduction strategy available.</p>
+
+                <h3 id="section-5-2">5.2 Secure Your Devices And Linked Accounts</h3>
+
+                <p>Your game account is only as secure as the systems connected to it. When evaluating account security, do not only think about your own actions. Think about everyone who can access the account.</p>
+
+                <ul>
+                    <li><em>Does anyone else know my login information?</em></li>
+                    <li><em>Has anyone ever logged into the account?</em></li>
+                </ul>
+
+                <p>Even if you personally follow every rule, account activity generated by someone else can still become your problem. The fewer people involved, the fewer variables you need to worry about. Not to mention, account sharing is explicitly against the Fair Play Statement.</p>
+
+                <h3 id="section-5-3">5.3 Consider Leaving An Ownership Trail</h3>
+
+                <p>This section is highly opinionated.</p>
+
+                <p>There was a <a href="https://www.reddit.com/r/Endfield/comments/1tfu7yw/account_security_psa_buy_something_for_99_cents/" target="_blank">community discussion suggesting that players who intend to stay with a game long-term should consider making at least one purchase.</a> Earlier in this archive, I explained that paying customers do not appear to receive special protection under the Terms of Service. Almost no game company in the world will admit that paying customers are weighted differently in automated triage or prioritized by support.</p>
+
+                <p>However, purchases do create records. Purchase receipts can become incredibly useful ownership evidence if you ever need to verify that an account belongs to you. For that reason, making a small purchase after investing significant time leaves a logical paper trail.</p>
+
+                <p>One comment from that discussion resonated with me:</p>
+
+                <blockquote>"Being able to secure your account for 1€, the price of a can of a soft drink, is definitely worth considering".</blockquote>
+
+                <p>Whether you agree with that philosophy is up to you. But if I could turn back time, I'd do this to my own account.</p>
+            </section>
+
+            <!-- Section 6: Things You Can Do Outside This Place -->
+            <section id="section-6" class="section">
+                <h2><span class="section-number">6.</span> Things You Can Do Outside This Place To Keep Helping</h2>
+
+                <h3>Share Useful Resources</h3>
+
+                <p>Not every contribution needs to be a personal story. Sometimes the most valuable thing you can do is point somebody toward information they would not have found on their own. That could include: Official statements, Security notices, Terms of Service explanations, Appeal advice, Previous case studies, Community discussions. Good information compounds over time.</p>
+
+                <h3>Correct Misinformation</h3>
+
+                <p>False information helps nobody. If you see claims that are clearly incorrect, unsupported, or misleading, consider correcting them. This applies regardless of which side of a discussion they support. The goal should be understanding. Not winning arguments.</p>
+
+                <h3>Remember The Human, Keep Discussions Civil</h3>
+
+                <p>Whether somebody was correctly banned, incorrectly banned, or something in between, there is usually a real person behind the account. Disagreement is fine. Harassment is not. Try to treat people with the same patience and fairness you would hope to receive yourself.</p>
+
+                <h3>Remember The Bigger Goal</h3>
+
+                <p>The best outcome would be for this archive to become unnecessary. If support systems improve, communication improves, and players find answers more easily, then I would happily see this project become obsolete. Until then, preserving information is the next best thing.</p>
+            </section>
+
+            <!-- Section 7: Contact -->
+            <section id="section-7" class="section">
+                <h2><span class="section-number">7.</span> Contact</h2>
+
+                <p>If you wish to contribute a case, provide corrections, submit additional information, or discuss something documented in this archive, you may contact:</p>
+
+                <p><strong><a href="mailto:tfbsg.ae@atomicmail.io">tfbsg.ae@atomicmail.io</a></strong></p>
+
+                <p>Please understand that:</p>
+
+                <ul>
+                    <li>I am not affiliated with Gryphline or Hypergryph.</li>
+                    <li>I cannot restore accounts.</li>
+                    <li>I cannot influence support decisions.</li>
+                    <li>I cannot guarantee a response to every message.</li>
+                    <li>I may ask follow-up questions if I need clarification.</li>
+                </ul>
+
+                <p>You are welcome to remain anonymous. Personally identifiable information may be redacted before publication.</p>
+
+                <p>If you found this archive because you were searching for answers, I hope it helped. If you found this archive because you wanted to help, thank you. And if you never need this archive again, that is probably the best outcome of all.</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar when a link is clicked
+        const tocLinks = document.querySelectorAll('.toc-link');
+        tocLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // TOC Generation and Active Link Highlighting
+        function generateTOC() {
+            const tocList = document.getElementById('toc-list');
+            const sections = document.querySelectorAll('.section');
+
+            const tocStructure = [
+                { id: 'section-1', title: '1. About This Site', level: 1, children: [
+                    { id: 'section-1-1', title: '1.1 What is this?', level: 2 },
+                    { id: 'section-1-2', title: '1.2 What This Site Is Not', level: 2 },
+                    { id: 'section-1-3', title: '1.3 Who Is This?', level: 2 },
+                    { id: 'section-1-4', title: '1.4 Why GitHub?', level: 2 }
+                ]},
+                { id: 'section-2', title: '2. If You Have The Same Problem', level: 1, children: [
+                    { id: 'section-2-1', title: '2.1 Make Sure *You* Did Not Actually Break The Rules', level: 2},
+                    { id: 'section-2-2', title: '2.2 Setting Expectations', level: 2 }
+                ]},
+                { id: 'section-3', title: '3. Understanding Gryphline\'s Customer Servicing', level: 1, children: [
+                    { id: 'section-3-1', title: '3.1 A Little About Gryphline', level: 2 },
+                    { id: 'section-3-2', title: '3.2 Understanding TOS', level: 2 },
+                    { id: 'section-3-3', title: '3.3 Understanding Helpshift', level: 2 }
+                ]},
+                { id: 'section-4', title: '4. "But I Didn\'t Want To Do This."', level: 1 },
+                { id: 'section-5', title: '5. I Wasn\'t Banned, But Now I\'m Concerned', level: 1, children: [
+                    { id: 'section-5-1', title: '5.1 Follow The Rules', level: 2 },
+                    { id: 'section-5-2', title: '5.2 Secure Your Devices And Linked Accounts', level: 2 },
+                    { id: 'section-5-3', title: '5.3 Consider Leaving An Ownership Trail', level: 2 }
+                ]},
+                { id: 'section-6', title: '6. Things You Can Do Outside This Place To Keep Helping', level: 1 },
+                { id: 'section-7', title: '7. Contact', level: 1 }
+            ];
+
+            function renderTOCItem(item) {
+                const li = document.createElement('li');
+                li.className = `toc-item toc-level-${item.level}`;
+
+                const wrapper = document.createElement('div');
+                wrapper.style.display = 'flex';
+                wrapper.style.alignItems = 'center';
+
+                const toggle = document.createElement('button');
+                toggle.className = 'toc-toggle';
+                toggle.setAttribute('aria-expanded', 'false');
+
+                if (item.children && item.children.length > 0) {
+                    toggle.removeAttribute('disabled');
+                } else {
+                    toggle.disabled = true;
+                    toggle.style.opacity = '0';
+                    toggle.style.cursor = 'default';
+                }
+
+                const link = document.createElement('a');
+                link.href = `#${item.id}`;
+                link.className = 'toc-link';
+                link.textContent = item.title;
+
+                wrapper.appendChild(toggle);
+                wrapper.appendChild(link);
+                li.appendChild(wrapper);
+
+                if (item.children && item.children.length > 0) {
+                    const submenu = document.createElement('ul');
+                    submenu.className = 'toc-submenu';
+                    item.children.forEach(child => {
+                        submenu.appendChild(renderTOCItem(child));
+                    });
+
+                    toggle.addEventListener('click', () => {
+                        submenu.classList.toggle('show');
+                        toggle.classList.toggle('expanded');
+                        toggle.setAttribute('aria-expanded', toggle.classList.contains('expanded'));
+                    });
+
+                    li.appendChild(submenu);
+                }
+
+                return li;
+            }
+
+            tocStructure.forEach(item => {
+                tocList.appendChild(renderTOCItem(item));
+            });
+        }
+
+        // Active link highlighting
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('.toc-link');
+
+            let currentSection = sections[0];
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - 100) {
+                    currentSection = section;
+                }
+            });
+
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection.id}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Initialize
+        generateTOC();
+        updateActiveLink();
+    </script>
+</body>
+</html>
