@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tfbsg-ae.github.io/Arknights-Endfield-Ban-Appeal-Archive/sitemap.xml
+Sitemap: https://tfbsg-ae.github.io/Arknights-Endfield-False-Positive-Ban-Archive/sitemap.xml
