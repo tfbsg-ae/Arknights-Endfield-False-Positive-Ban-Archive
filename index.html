@@ -57,11 +57,18 @@
             text-decoration: none;
             border-bottom: none;
             font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #0066cc;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
         .header-nav a:hover {
             color: #0066cc;
-            background: none;
+            background: #e8f1ff;
+            border-color: #0052a3;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
         }
 
         .header-email {
@@ -395,10 +402,233 @@
         .sidebar::-webkit-scrollbar-thumb:hover {
             background: #999;
         }
+
+        /* Brick Collage Styles */
+        .brick-collage {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 20px 0;
+            margin: 20px 0;
+            max-height: 50vh;
+            overflow: auto;
+            align-content: flex-start;
+            scroll-behavior: smooth;
+        }
+
+        .brick-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #e0e0e0;
+            flex: 0 0 calc((50vh - 36px) / 3);
+            height: calc((50vh - 36px) / 3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .brick-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .brick-item:nth-child(2) {
+            flex: 0 0 calc((50vh - 36px) / 3 * 2 + 12px);
+        }
+
+        .brick-item:nth-child(5) {
+            flex: 0 0 calc((50vh - 36px) / 3 * 2 + 12px);
+        }
+
+        .brick-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Modal Styles */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .modal-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-nav.prev {
+            left: 20px;
+        }
+
+        .modal-nav.next {
+            right: 20px;
+        }
+
+        .modal-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .brick-collage {
+                max-height: 45vh;
+            }
+
+            .brick-item {
+                flex: 0 0 calc((45vh - 36px) / 3);
+                height: calc((45vh - 36px) / 3);
+            }
+
+            .brick-item:nth-child(2),
+            .brick-item:nth-child(5) {
+                flex: 0 0 calc((45vh - 36px) / 3 * 2 + 12px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .brick-collage {
+                max-height: 40vh;
+                gap: 8px;
+            }
+
+            .brick-item {
+                flex: 0 0 calc((40vh - 24px) / 2);
+                height: calc((40vh - 24px) / 2);
+            }
+
+            .brick-item:nth-child(2),
+            .brick-item:nth-child(5) {
+                flex: 0 0 calc((40vh - 24px) / 2 * 2 + 8px);
+            }
+
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .modal-nav.prev {
+                left: 10px;
+            }
+
+            .modal-nav.next {
+                right: 10px;
+            }
+
+            .modal-close {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
     <script data-goatcounter="https://tfbsg-ae.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" src="" alt="Full size image">
+            <button class="modal-nav prev" id="prevBtn" aria-label="Previous image">❮</button>
+            <button class="modal-nav next" id="nextBtn" aria-label="Next image">❯</button>
+            <button class="modal-close" id="closeBtn" aria-label="Close modal">✕</button>
+            <div class="modal-counter" id="imageCounter"></div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="header-left">
@@ -499,7 +729,9 @@
 
                 <p>Bans happen for many reasons. Some are entirely justified. Some are misunderstandings. Others may be related to account compromise, suspicious login activity, payment issues, or ownership disputes that the player may not immediately recognize. This archive cannot determine which category your case belongs to. What it can do is help you approach the situation methodically, avoiding early mistakes that could make your case harder to present later.</p>
 
-                <p>Check your ban notice. In the over a dozen player reports I personally encountered across different platforms, many, if not all, of the ban dates end at exactly the same time: 2106-02-07 at 01:28 (UTC-5) for NA/EU or 14:28 (UTC+8) for Asia. More importantly, outside of mainland China, the cited reason is often (had to say that because 'almost always' sounds more accusatory) an "Account Risk." From the outside looking in, there is zero visible difference between a legitimate ban and a false positive. The only difference you can make is in the evidence you prepare.</p>
+                <div class="brick-collage" id="brickCollage"></div>
+
+                <p>Check your ban notice. In the over a dozen reports I’ve personally encountered across various platforms regarding players banned after the game's official release, many, if not all, of the ban dates end at exactly the same time: 2106-02-07 at 01:28 (UTC-5) for NA/EU or 14:28 (UTC+8) for Asia. More importantly, outside of mainland China, the cited reason is often (had to say that because 'almost always' sounds more accusatory) an "Account Risk." From the outside looking in, there is zero visible difference between a legitimate ban and a false positive. The only difference you can make is in the evidence you prepare.</p>
 
                 <p>At this stage: Take a deep breath and hold your horses.</p>
 
@@ -662,9 +894,9 @@
 
                 <p>But if you still have a little bit of fight, or perhaps just a little bit of pettiness left in you, consider keeping the issue visible. For that, I personally thank you.</p>
 
-                <h3 id="section-3-3">3.3 Leave a Trail Like Me</h3>
+                <h3 id="section-2-3">2.3 Leave a Trail Like Me</h3>
 
-                <h4 id="section-3-3-1">3.3.1 What Are the Benefits of Speaking Up?</h4>
+                <h4 id="section-2-3-1">2.3.1 What Are the Benefits of Speaking Up?</h4>
 
                 <p>The overall goal is simple: Make sure future players have something to find when they begin asking the same questions. Beyond helping players, compiling these cases creates a visibility. It serves as a passive but undeniable signal, demonstrating that these account flags are a recurring, documented issue rather than isolated anomalies.</p>
 
@@ -672,7 +904,7 @@
 
                 <p>It is in the nature of automated detection systems that, as long as they are being used, the false-positive rate is unlikely to ever be truly zero. Figuratively speaking, the false-positive rate can appear to be zero if affected users simply disappear without speaking up. Cases that are never reported, discussed, or challenged are easy to overlook and may ultimately be treated as negligible.</p>
 
-                <h4 id="section-3-3-2">3.3.2 How Can You Contribute?</h4>
+                <h4 id="section-2-3-2">2.3.2 How Can You Contribute?</h4>
 
                 <p><strong>Document Your Experience:</strong> If you post online, include the type of ban, the chronology, what you didn't do, the responses you received, and any honest theories about what might have triggered the flag. <a href="#section-3-1">Run through the self-audit checklist before posting.</a> Separate your raw facts from your personal theories.</p>
 
@@ -691,7 +923,7 @@
 
                 <p><strong>Avoid Unnecessary Accusations:</strong> Do not attack, harass, or target any individuals. Avoid rumors presented as facts. The fastest way to destroy credibility is to make claims that cannot be supported. Be neutral, be helpful, be kind.</p>
 
-                <h4 id="section-3-3-3">3.3.3 Additional: Keep It Together</h4>
+                <h4 id="section-2-3-3">2.3.3 Additional: Keep It Together</h4>
 
                 <p>No one can truly measure how much time, effort, and emotion you invested into your account. The character grinds, the gacha luck, the 100% map explorations, the event medals, the months worth of Sanity, the money spent, the memories created.</p>
 
@@ -699,7 +931,7 @@
 
                 <p>If you have done your absolute best to fight it, what else is left? Leave a trail if you wish. Fight if you wish. Move on if you wish. All of those choices are valid.</p>
 
-                <h4 id="section-3-3-4">3.3.4 Beware of Scams</h4>
+                <h4 id="section-2-3-4">2.3.4 Beware of Scams</h4>
 
                 <p>A quick but necessary warning: If you post about a lost or banned account publicly, theres a chance that you will likely be targeted by "account recovery experts" or "hackers" claiming they can bypass Gryphline's servers and restore your account for a fee.</p>
 
@@ -717,6 +949,8 @@
                 <p>As of April 2026, public business directories (source: <a href="https://recordowl.com/company/gryph-frontier-pte-ltd" target="_blank">1</a>, <a href="https://sgpgrid.com/company-details/gryph-frontier-pte-ltd" target="_blank">2</a>) referencing Singapore corporate records reported Gryph Frontier Pte. Ltd. as having fewer than 15 officers or employees. Of course, this does not necessarily mean that fewer than 15 people are running the entire global operation for Arknights: Endfield. Modern companies frequently rely on outsourcing partners. Does Gryphline specifically outsource customer support? While I have not found enough publicly available evidence to make an absolute claim, it is highly unrealistic to imagine every global support ticket entering a massive office filled exclusively with dedicated, in-house Gryphline staff.</p>
 
                 <p><em>A quick note on their registered address: <a href="https://www.sgpbusiness.com/company/Gryph-Frontier-Pte-Ltd" target="_blank">Gryphline's registered business address appears to be shared by over 400 other companies.</a> This is not unusual in Singapore; many businesses use corporate service providers or virtual offices for legal and administrative purposes. A registered address is not necessarily the location where day-to-day operations occur.</em></p>
+
+                <img src="images/10.png">
 
                 <p><strong>Gryphline vs. Hypergryph Support Platforms</strong></p>
 
@@ -947,7 +1181,8 @@
                 ]},
                 { id: 'section-2', title: '2. If You Have The Same Problem', level: 1, children: [
                     { id: 'section-2-1', title: '2.1 Make Sure *You* Did Not Actually Break The Rules', level: 2},
-                    { id: 'section-2-2', title: '2.2 Setting Expectations', level: 2 }
+                    { id: 'section-2-2', title: '2.2 Try Fighting for Your Account Back', level: 2 },
+                    { id: 'section-2-3', title: '2.3 Leave a Trail Like Me', level: 2 }
                 ]},
                 { id: 'section-3', title: '3. Understanding Gryphline\'s Customer Servicing', level: 1, children: [
                     { id: 'section-3-1', title: '3.1 A Little About Gryphline', level: 2 },
@@ -1040,9 +1275,92 @@
 
         window.addEventListener('scroll', updateActiveLink);
 
+        // Brick Collage and Modal Functionality
+        const brickCollageImages = [
+            'bannotices/200626-1.webp',
+            'bannotices/673946733_976777311501647_9183152462981807079_n.jpg',
+            'bannotices/684227728_966257369570560_8710945265615978012_n.jpg',
+            'bannotices/707067570_122158083602964883_8840765070884637604_n.jpg',
+            'bannotices/Screenshot_2026-06-19_024043.png'
+        ];
+
+        let currentImageIndex = 0;
+
+        function initializeBrickCollage() {
+            const collage = document.getElementById('brickCollage');
+            
+            brickCollageImages.forEach((imagePath, index) => {
+                const item = document.createElement('div');
+                item.className = 'brick-item';
+                
+                const img = document.createElement('img');
+                img.src = imagePath;
+                img.alt = `Ban notice ${index + 1}`;
+                img.className = 'brick-img';
+                
+                item.appendChild(img);
+                item.addEventListener('click', () => openModal(index));
+                
+                collage.appendChild(item);
+            });
+        }
+
+        function openModal(index) {
+            currentImageIndex = index;
+            updateModalImage();
+            document.getElementById('imageModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateModalImage() {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('modalImage');
+            const counter = document.getElementById('imageCounter');
+            
+            img.src = brickCollageImages[currentImageIndex];
+            counter.textContent = `${currentImageIndex + 1} / ${brickCollageImages.length}`;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % brickCollageImages.length;
+            updateModalImage();
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + brickCollageImages.length) % brickCollageImages.length;
+            updateModalImage();
+        }
+
+        // Modal event listeners
+        document.getElementById('closeBtn').addEventListener('click', closeModal);
+        document.getElementById('nextBtn').addEventListener('click', nextImage);
+        document.getElementById('prevBtn').addEventListener('click', prevImage);
+
+        document.getElementById('imageModal').addEventListener('click', (e) => {
+            if (e.target.id === 'imageModal') {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('imageModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+
         // Initialize
         generateTOC();
         updateActiveLink();
+        initializeBrickCollage();
     </script>
 </body>
 </html>
